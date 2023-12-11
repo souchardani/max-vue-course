@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enteredGoalValue" />
+      <button @click="addGoal">Add Goal</button>
+      <p v-if="goals.length===0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <!-- v-else solo puede ser usado si el elemento esta directamente despues de un elemento con v-if -->
+      <!-- elimina o añade elementos del dom -->
+      <ul v-else>
+        <!-- cuando usamos v-for en vue, debemos usar el for INNNNNNN (+++++++FOR IN+++++++) -->
+        <!-- no tenemos acceso al elemento goal fuera del li item -->
+        <!-- para acceder al indice la sintaxis es (goal, index) in goals -->
+        <!-- key es un atributo que entiende vue y es recomendable añadirlo cuando usamos v-for -->
+        <!-- key lo que hace es hacer unico cada elemento en la lista para cuando haya actualizaciones no se pierda contenido del elemento -->
+        <li
+          v-for="(goal, index) in goals"
+          :key="goal"
+          @click="removeGoal(index)"
+        >
+          <p>{{ goal }} - {{ index }}</p>
+          <input type="text" @click.stop />
+        </li>
+      </ul>
+
+      <!-- vue permite recorrer numero con esta sintaxis: num in 10 -->
+      <!-- <ul>
+        <li v-for="num in 10">{{ num }}</li>
+      </ul> -->
+
+      <!-- para objetos es igual value in object donde el value es el valor de cada key del objeto -->
+      <!-- para obtener el nombre de clave, la sintaxis seria (value, key) in object -->
+      <!-- en el objeto incluso podriamos tener el index de la propiedad con (value, key, index) -->
+      <!-- <ul>
+        <li v-for="(value, key) in {name: 'Dani', age: 25}">
+          {{ key }}: {{ value }}
+        </li>
+      </ul> -->
+
+      <!-- s-show funciona solo (sin v-else) pero solo para mostrar o ocultar del dom con display:none(css) -->
+    </section>
+  </body>
+</html>
