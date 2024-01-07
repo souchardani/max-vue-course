@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header v-if="$slots.header">
       <!-- cuando añadimos mas de un slot, debemos identificarlos con el atributo name -->
       <slot name="header">
         <!-- todo el contenido que va dentro del slot es el contenido default que se va a sobreescribir -->
@@ -28,4 +28,10 @@ header {
 }
 </style>
 
-<script setup></script>
+<script>
+export default {
+  mounted() {
+    console.log(this.$slots.header);
+  },
+};
+</script>

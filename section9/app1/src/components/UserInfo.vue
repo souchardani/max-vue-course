@@ -1,11 +1,13 @@
 <template>
   <section>
     <base-card>
-      <template v-slot:header>
+      <!-- #header o v-slot:header son lo mismo -->
+      <template #header>
         <h3>{{ fullName }}</h3>
         <base-badge :type="role" :caption="role.toUpperCase()"></base-badge>
       </template>
-      <template v-slot:default>
+      <!-- esto v-slot:default es igual a default -->
+      <template #default>
         <p>{{ infoText }}</p>
       </template>
     </base-card>
