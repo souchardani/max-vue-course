@@ -1,34 +1,27 @@
 <template>
   <div>
     <the-header></the-header>
-    <badge-list></badge-list>
-    <user-info
-      :full-name="activeUser.name"
-      :info-text="activeUser.description"
-      :role="activeUser.role"
-    ></user-info>
-    <course-goals>
-      <!-- slotProp contiene todos los atributos que se pasan desde el slot al componente que los usa -->
-      <template #default="slotProps">
-        <h2 @click="showSlot(slotProps)">{{ slotProps.item }}</h2>
-        <p>{{ slotProps.anotherProp }}</p>
-      </template>
-      <!-- si hay un solo slot, podriamos omitir el template -->
-    </course-goals>
+    <button @click="setSelectedComponent('active-goals')">Active goals</button>
+    <button @click="setSelectedComponent('mange-goals')">Manage goals</button>
+    <!-- <active-goals></active-goals>
+    <mange-goals></mange-goals> -->
+    <!-- keep alive mantiene a los componentes dinamicos activos independientemente de que cambien a otros -->
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
-import BadgeList from "./components/BadgeList.vue";
-import UserInfo from "./components/UserInfo.vue";
-import CourseGoals from "./components/CourseGoals.vue";
+import MangeGoals from "./components/MangeGoals.vue";
+import ActiveGoals from "./components/ActiveGoals.vue";
+
 export default {
   components: {
     TheHeader,
-    BadgeList,
-    UserInfo,
-    CourseGoals,
+    MangeGoals,
+    ActiveGoals,
   },
   data() {
     return {
@@ -37,11 +30,15 @@ export default {
         description: "Site owner and admin",
         role: "admin",
       },
+      selectedComponent: "active-goals",
     };
   },
   methods: {
     showSlot(slotProps) {
       console.log(slotProps);
+    },
+    setSelectedComponent(cmp) {
+      this.selectedComponent = cmp;
     },
   },
   mounted() {
